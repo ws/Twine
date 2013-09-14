@@ -1,0 +1,16 @@
+{
+  "name": "twine",
+  "version": "0.0.1",
+  "description": "A Node library for accessing Vine.",
+  "main": "twine.js",
+  "author": "Will Smidlein <Will@WillSmidlein.com> (http://willsmidlein.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "request": "~2.27.0",
+    "underscore": "~1.5.2"
+  },
+  "devDependencies": {
+  	"mocha": "~1.12.1"
+  }
+
+}
