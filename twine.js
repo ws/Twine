@@ -49,7 +49,7 @@ Twine.prototype.setSession = function(args, callback){
 
 Twine.prototype.getUser = function(userId, callback){
 
-	request({url : baseURL + '/users/profiles/' + userId, headers: {"vine-session-id" : this.key , "User-Agent" : userAgent, "X-Vine-Client" : vineClient} }, function (error, response, body) {
+	request({url : baseURL + '/users/profiles/' + userId, headers: headers: getHeaders() }, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			callback(JSON.parse(body).data);
 		}
@@ -61,7 +61,7 @@ Twine.prototype.getUser = function(userId, callback){
 
 Twine.prototype.getMe = function(callback){
 
-	request({url : baseURL + '/users/me', headers: {"vine-session-id" : this.key , "User-Agent" : userAgent, "X-Vine-Client" : vineClient} }, function (error, response, body) {
+	request({url : baseURL + '/users/me', headers: getHeaders() }, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			callback(JSON.parse(body).data);
 		}
@@ -73,7 +73,7 @@ Twine.prototype.getMe = function(callback){
 
 Twine.prototype.getTimeline = function(callback){
 
-	request({url : baseURL + '/timelines/graph', headers: {"vine-session-id" : this.key , "User-Agent" : userAgent, "X-Vine-Client" : vineClient} }, function (error, response, body) {
+	request({url : baseURL + '/timelines/graph', headers: getHeaders() }, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			callback(JSON.parse(body).data);
 		}
@@ -85,7 +85,7 @@ Twine.prototype.getTimeline = function(callback){
 
 Twine.prototype.getUserTimeline = function(userId, callback){
 
-	request({url : baseURL + '/timelines/users/' + userId , headers: {"vine-session-id" : this.key , "User-Agent" : userAgent, "X-Vine-Client" : vineClient} }, function (error, response, body) {
+	request({url : baseURL + '/timelines/users/' + userId , headers: getHeaders() }, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			callback(JSON.parse(body).data);
 		}
@@ -97,7 +97,7 @@ Twine.prototype.getUserTimeline = function(userId, callback){
 
 Twine.prototype.searchUsers = function(query, callback){
 
-	request({url : baseURL + '/users/search/' + query , headers: {"vine-session-id" : this.key , "User-Agent" : userAgent, "X-Vine-Client" : vineClient} }, function (error, response, body) {
+	request({url : baseURL + '/users/search/' + query , headers: getHeaders() }, function (error, response, body) {
 		if (!error && response.statusCode == 200) {
 			callback(JSON.parse(body).data);
 		}
@@ -106,6 +106,8 @@ Twine.prototype.searchUsers = function(query, callback){
 		}
 	})
 }
+
+module.exports = Twine;
 
 // Helpers
 
@@ -118,4 +120,7 @@ function randomString(length){
 	return data;
 }
 
-module.exports = Twine;
+function getHeaders(){
+	// This is a stupid method. I know this. But there is a reason.
+	return {"vine-session-id" : this.key , "User-Agent" : userAgent, "X-Vine-Client" : vineClient};
+}
