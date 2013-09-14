@@ -26,7 +26,7 @@ Here's some example code... I'm working on actual docs for all the functions, bu
 ```
 
 var twine = require('twine');
-var session = twine('you@example.com', 'password');
+var session = twine({username: 'user@example.com', password: 'example'});
 
 session.on('loggedIn', function(){
 	session.getTimeline(function(timeline){
